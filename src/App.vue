@@ -9,6 +9,10 @@
     </div>
 
     <to-do />
+
+    <test-doc />
+
+    <color-box />
   </div>
 </template>
 
@@ -16,6 +20,8 @@
 import HelloWorld from './components/HelloWorld.vue';
 import CountDown from './components/CountDown.vue';
 import ToDo from './components/ToDo.vue';
+import TestDoc from './components/TestDoc.vue';
+import ColorBox from './components/ColorBox.vue';
 
 export default {
   name: 'App',
@@ -29,6 +35,8 @@ export default {
     HelloWorld,
     CountDown,
     ToDo,
+    TestDoc,
+    ColorBox,
   },
   methods: {
     onstart() {

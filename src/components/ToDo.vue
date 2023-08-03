@@ -3,15 +3,20 @@
     type="text"
     v-model="inputValue"
     ref="inputNode"
-    @keydown="handleSubmitOnEnter"
+    @keydown.enter="onSubmit"
   />
   <button @click="onSubmit">Submit</button>
   <button @click="deleteAll">Clear All</button>
 
   <ul class="list">
-    <li v-for="(item, index) in dataList" :key="index" :data-id="index">
-      <span @click="completed">{{ item.content }}</span>
-      <button @click="onDelete">Delete</button>
+    <li
+      v-for="(item, index) in dataList"
+      :key="index"
+      :data-id="index"
+      @click="completed"
+    >
+      {{ item.content }}
+      <button @click.stop @click="onDelete">Delete</button>
     </li>
   </ul>
 </template>
@@ -38,11 +43,6 @@ export default {
       this.inputValue = '';
       this.$refs.inputNode.value = '';
     },
-    handleSubmitOnEnter(e) {
-      if (e.key == 'Enter') {
-        this.onSubmit();
-      }
-    },
     deleteAll() {
       this.dataList = [];
     },
@@ -50,12 +50,12 @@ export default {
       this.dataList.splice(e.target.parentNode.dataset.id, 1);
     },
     completed(e) {
-      if (!e.target.parentNode.classList.contains('done')) {
-        e.target.parentNode.classList.add('done');
-        this.dataList[e.target.parentNode.dataset.id].completed = true;
+      if (!e.target.classList.contains('done')) {
+        e.target.classList.add('done');
+        this.dataList[e.target.dataset.id].completed = true;
       } else {
-        e.target.parentNode.classList.remove('done');
-        this.dataList[e.target.parentNode.dataset.id].completed = false;
+        e.target.classList.remove('done');
+        this.dataList[e.target.dataset.id].completed = false;
       }
     },
   },
